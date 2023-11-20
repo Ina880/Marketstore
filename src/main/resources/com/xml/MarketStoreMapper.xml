@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cms.mapper.marketstore.MarketStoreMapper"> 
+<!-- 	透過namespace來連結 -->
+	<select id="select"
+		parameterType="com.cms.entity.marketstore.MarketStoreBean"
+		resultType="com.cms.entity.marketstore.MarketStoreBean">
+		
+		
+	    SELECT
+	      storeId                               
+	      ,storeName                               
+	      ,address                                   
+	      ,phone                                    
+	      ,DATE_FORMAT(startDay, '%Y年%m月-%d日') as startDay                           
+	      ,DATE_FORMAT(finishDay, '%Y年%m月-%d日') as finishDay  
+	      ,DATE_FORMAT(registDay, '%Y年%m月-%d日') as registDay 
+	      ,DATE_FORMAT(updateDay, '%Y年%m月-%d日') as updateDay
+	                    
+	    FROM
+	    market_store 
+	<where><!-- 在檢索條件有的情況下，會自動拚入 -->
+		<if test="storeName != null">  
+	    and storeName like concat('%',#{storeName},'%')<!-- 模糊查詢 -->
+	    </if>
+	    <if test="address != null">
+	    and address like concat('%',#{address},'%')
+	    </if>
+	 </where>
+	ORDER BY
+	    storeId
+	</select>
+<select id="selectMaxId" resultType="String">
+      SELECT
+  	  max(storeId) as storeId                         
+      FROM
+	  market_store 
+        
+	</select>
+	 
+	<insert id="insert"
+        parameterType="com.cms.entity.employee.CmsEmployeeBean">
+        INSERT INTO cms_employee (
+		storeId,
+		storeName,
+		address,
+		phone,
+		startDay,
+		finishDay,
+		registDay,
+        updateDay,
+        )
+        VALUES (
+        #{employeeId},
+        #{storeId},
+		#{storeName},
+		#{address},
+		#{phone},
+		#{startDay},
+	    #{finishDay},
+	    STR_TO_DATE(#{startDay}, '%Y-%m-%d'),
+	    STR_TO_DATE(#finishDay}, '%Y-%m-%d'),
+        sysdate(),
+        sysdate()
+        )
+	</insert>
+</mapper>

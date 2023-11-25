@@ -21,6 +21,9 @@ public class MarketStoreListForm extends BaseForm {
 
 	private String address;
 	
+	//全削除の販売店ID（複数件）
+	private String deleteStoreIds;
+	
 	/* 検索結果 */
 	private List<MarketStoreBean> results;
 

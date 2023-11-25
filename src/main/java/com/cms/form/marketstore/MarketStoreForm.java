@@ -16,6 +16,9 @@ import lombok.Setter;
 public class MarketStoreForm extends BaseForm {
 
 	/* 検索結果 */
+	
+	private String storeId;
+	
 	@NotEmpty
 	private String storeName;
 	

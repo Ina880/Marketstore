@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.cms.common.UrlConst;
 import com.cms.controller.base.ControllerBase;
 import com.cms.form.marketstore.MarketStoreForm;
 import com.cms.service.marketstore.MarketStoreService;
@@ -21,6 +20,9 @@ import com.cms.service.marketstore.MarketStoreService;
 @Controller
 @RequestMapping(value = "/marketstore/marketstoreadd")
 public class MarketStoreAddController extends ControllerBase {
+	
+	private final static String URL_REDREDIRECT ="redirect:/marketstore/marketstorelist";
+	private final static String URL ="/marketstore/marketstoreadd";
 	
 	@Autowired
 	MarketStoreService service;
@@ -36,7 +38,7 @@ public class MarketStoreAddController extends ControllerBase {
 		
 		model.addAttribute("form", initForm);
 
-		return "/marketstore/marketstoreadd";
+		return URL;
 	}
 
 	
@@ -50,7 +52,7 @@ public String insert(@ModelAttribute("form") @Valid MarketStoreForm form, Bindin
    
 	if (result.hasErrors()) {
 		model.addAttribute("form", form);
-		return null;
+		return null; //返回自己的畫面
 	}
 
 	try {
@@ -58,11 +60,11 @@ public String insert(@ModelAttribute("form") @Valid MarketStoreForm form, Bindin
 	} catch (Exception e) {
 
 		model.addAttribute("errorMessage", "システムエラーが発生しました。管理員へご連絡ください。");
-//		model.addAttribute("form", form);
+
 		return null;
 	}
 
-	return UrlConst.redirect_cmsemployeelist;
+	return URL_REDREDIRECT;
 }
 
 
@@ -73,7 +75,7 @@ public String insert(@ModelAttribute("form") @Valid MarketStoreForm form, Bindin
 public String gotoMarketStoreList (Model model) {
 
 	
-	return "redirect:/marketstore/marketstorelist"; //redirect畫面遷移
+	return URL_REDREDIRECT; //redirect畫面遷移
 }
  
 

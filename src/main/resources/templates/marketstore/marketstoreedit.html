@@ -3,8 +3,9 @@
 
 <div th:replace="common/common_header.html"></div>
 
-<body>
-<form th:action="@{/marketstore/marketstoreadd}" method="POST" th:object="${form}">
+<body>                         
+	<form th:action="@{/marketstore/marketstoreedit/}" method="POST"
+		th:object="${form}">
 		<div class="publicHeader" th:insert="~{fragments/header :: header}">...</div>
 		<!--时间-->
 		<section class="publicTime">
@@ -16,11 +17,17 @@
 			<div class="left" th:insert="~{fragments/left :: left}">...</div>
 			<div class="right">
 				<div class="location">
-					<strong>画面情報：</strong> <span>販売店登録</span>
-                 </div>
+					<strong>画面情報：</strong> <span>販売店編集</span>
+				</div>
 				<div class="providerDetail">
-	
-					<div class="div_edit_row">
+
+				<div class="div_edit_row">
+						<label>販売店ID：</label>
+						    <input name="storeIdShow" type="text" th:value="${form.storeId}" th:field="*{storeId}" th:disabled="disabled" />
+						    <input name="storeId" type="hidden" th:value="${form.storeId}" th:field="*{storeId}" />
+					</div>
+				
+				<div class="div_edit_row">
 						<label>販売店：</label>
                         <input name="storeName" type="text" th:value="${form.storeName}" th:field="*{storeName}" />
                         <span th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}" style="color: red"></span>
@@ -68,29 +75,27 @@
                         <span th:if="${#fields.hasErrors('updateDay')}" th:errors="*{updateDay}" style="color: red"></span>
 						
 					</div>
+					    </div>
+					</div>
 					
-					
-
 
 					<div class="providerDetailBtn">
-						<input type="submit" id="insert" name="insert" value="登録" /> <input
-							type="submit" value="返回" id="gotoMarketStoreList" name="gotoMarketStoreList" />
+						<input type="submit" id="update" name="update" value="更新" /> <input
+							type="submit" value="返回" id="gotoMarketStoreList"
+							name="gotoMarketStoreList" />
 					</div>
 				</div>
-			
-		    </div>
+			</div>
 		</section>
 		<footer class="footer"> </footer>
-
 	</form>
+	<!-- 共通Js -->
 
-	<!-- 共通Js -->	<!-- 共通Js -->
 	<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
 	<script type="text/javascript" th:src="@{/js/js.js}"></script>
 	<script type="text/javascript" th:src="@{/js/time.js}"></script>
 	<script type="text/javascript" th:src="@{/js/common.js}"></script>
 	<!-- 画面Js -->
 	<script type="text/javascript" th:src="@{/js/marketstore/marketstore.js}"></script>
-
 </body>
 </html>

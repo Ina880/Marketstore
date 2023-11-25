@@ -1,4 +1,4 @@
-package com.cms.entity.marketstore;
+package com.cms.entity.onlineshop;
 
 
 
@@ -9,14 +9,14 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Data
-@Table(name = "market_store")
-public class MarketStoreBean {
+@Table(name = "online_shop")
+public class OnlineShopBean {
     @Id
-	@Column(name = "storeId")
-	private String storeId;
+	@Column(name = "shopId")
+	private String shopId;
 	
-	@Column(name = "storeName")
-	private String storeName;
+	@Column(name = "shopName")
+	private String shopName;
 	
 	@Column(name = "address")
 	private String address;

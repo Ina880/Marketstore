@@ -4,7 +4,7 @@
 <div th:replace="common/common_header.html"></div>
 
 <body>
-	<form th:action="@{/marketstore/marketstorelist}" method="POST"
+	<form th:action="@{/onlineshop/onlineshoplist}" method="POST"
 		th:object="${form}">
 		<div class="publicHeader" th:insert="~{fragments/header :: header}">...</div>
 		<!--时间-->
@@ -16,47 +16,43 @@
 			<div class="left" th:insert="~{fragments/left :: left}">...</div>
 			<div class="right">
 				<div class="location">
-					<strong>画面情報：</strong> <span>販売店一覧画面</span> <br /> <span
-						th:if="${form.errorMessage!=null}" th:text="${form.errorMessage}"
-						style="color: red;"></span>
+					<strong>画面情報：</strong> <span>網路店一覧</span> <br />
+					<span th:if="${form.errorMessage!=null}" th:text="${form.errorMessage}" style="color: red;"></span>
 				</div>
-
-				<!-- ■検索条件 -->
+				
+                <!-- ■検索条件 -->
 				<div class="search row">
-					<div class="class_td_50">
-						<label>販売店名：</label> <input type="text" name="storeName"th:id="${form.storeName}" th:value="${form.storeName}"
-							placeholder="販売店名をご入力ください。" />
-						<!-- 非表示の明細ボタン -->
-
+	                <div class="class_td_50">
+						<label>網路店名：</label>
+						<input type="text" name="shopname" th:id="${form.shopname}" th:value="${form.shopname}" placeholder="網路店名をご入力ください。" /> <!-- 非表示の明細ボタン -->
+					
+					</div>
+					
 					</div>
 					<div class="class_td_50">
 						<label>アドレス：</label> 
 						<input type="text" name="name"th:id="${form.address}" th:value="${form.address}" />
-						
-
-					</div>
-
-					<div class="class_td_50">
+	        
+	              <div class="class_td_50">
 						<input type="submit" id="select" name="select" value="検索"	width="30px;" />
 						<input type="submit" id="addStore" name="addStore" value="新規"  width="30px;" th:style="${form.disabledFlg}"/>
-						<input type="submit" id="deleteAll"name="deleteAll" value="全削除"  width="30px;" th:style="${form.disabledFlg}"/>
+<!-- 						<input type="submit" id="deleteAll"name="deleteAll" value="全削除"  width="30px;" th:style="${form.disabledFlg}"/> -->
 						<input type="submit" name="read" id="read" style="display: none;" />
 						<input type="submit" name="update" id="update" style="display: none;" />
-				        <input type="submit" name="delete" id="delete" style="display: none;" />
-				        <input type="hidden" id="deleteStoreIds" name="deleteStoreIds"/>
+<!-- 				        <input type="submit" name="delete" id="delete" style="display: none;" /> -->
+<!-- 				        <input type="hidden" id="deleteStoreIds" name="deleteStoreIds"/> -->
 					</div>
 					<div class="class_td_50"></div>
 				</div>
-
-				<!-- ■検索結果 -->
-
+				
+                <!-- ■検索結果 -->
 				<div style="padding-top: 10px;">
 
 					<table class="providerTable" th:if="${form != null}">
 						<tr class="firstTr">
 							<th width="5%"><input type="checkbox" id="all"></th>
-							<th width="10%">販売店ID</th>
-							<th width="10%">販売店名</th>
+							<th width="10%">網路店ID</th>
+							<th width="10%">網路店名</th>
 							<th width="10%">アドレス</th>
 							<th width="10%">電話</th>
 							<th width="10%">營業開始年月日</th>
@@ -66,26 +62,26 @@
 							<th width="10%">アクション</th>
 						</tr>
 						<tr th:if="${!#lists.isEmpty(form.results)}"
-							th:each="data : ${form.results}">
-							<td style="text-align: center;"><input type="checkbox"
-								th:id="checkBoxId" th:name="checkBoxId"
-								th:value="${data.storeId}" /></td>
-							<td th:text="${data.storeId}"></td>
-							<td th:text="${data.storeName}"></td>
+							th:each="data,stat : ${form.results}">
+							<td style="text-align: center;">
+							    <input type="checkbox" th:id="checkBoxId" th:name="checkBoxId" th:value="${data.shopId}" />
+							</td>
+							<td th:text="${data.shopId}"></td>
+							<td th:text="${data.shopname}"></td>
 							<td th:text="${data.address}"></td>
 							<td th:text="${data.phone}"></td>
 							<td th:text="${data.startDay}"></td>
 							<td th:text="${data.finishDay}"></td>
 							<td th:text="${data.registDay}"></td>
 							<td th:text="${data.updateDay}"></td>
-							
-							<td><img th:src="@{/img/read.png}" alt="参照" title="参照"onclick="clickRead(this);"th:value="${data.storeId}" /> 
-							<img th:src="@{/img/update.png}" alt="更新" title="更新"onclick="clickUpdate(this)"th:value="${data.storeId}" /> 
-							<img th:src="@{/img/delete.png}" alt="削除" title="削除"onclick="clickDelete(this)"th:value="${data.storeId}"th:style="${form.disabledFlg}" /></td>
+							<td>
+							    <img th:src="@{/img/read.png}" alt="参照" title="参照" onclick="clickRead(this);" th:value="${data.employeeId+'_'+data.updateDay}" />
+							    <img th:src="@{/img/update.png}" alt="更新" title="更新" onclick="clickUpdate(this)" th:value="${data.employeeId+'_'+data.updateDay}" />
+								<img th:src="@{/img/delete.png}" alt="削除" title="削除" onclick="clickDelete(this)" th:value="${data.employeeId+'_'+data.updateDay}" th:style="${form.disabledFlg}" />
+							</td>
 						</tr>
 					</table>
 				</div>
-
 			</div>
 		</section>
 
@@ -109,11 +105,10 @@
 	<script type="text/javascript" th:src="@{/js/js.js}"></script>
 	<script type="text/javascript" th:src="@{/js/time.js}"></script>
 	<script type="text/javascript" th:src="@{/js/common.js}"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- 画面Js -->
-	<script type="text/javascript" th:src="@{/js/marketstore/marketstore.js}"></script>
+	<script type="text/javascript" th:src="@{/js/employee/employeelist.js}"></script>
 
-
+	
 </body>
 </html>

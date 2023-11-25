@@ -36,4 +36,28 @@ public interface MarketStoreMapper {
 	 */
 	int insert( MarketStoreBean bean);
 	
+	/**
+	 * 販売店情報更新
+	 * 
+	 * @param user 検索用リクエストデータ
+	 * @return 更新件数
+	 */
+	int update(MarketStoreBean bean);
+	
+	/**
+	 * 販売店情報削除
+	 * 
+	 * @param user 検索用リクエストデータ
+	 * @return 更新件数
+	 */
+	int delete(MarketStoreBean bean);
+	
+	/**
+	 * 情報削除
+	 * 
+	 * @param ids 削除ID配列
+	 * @return 削除件数
+	 */
+	int deleteAll(String[] ids);
+	
 }
